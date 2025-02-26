@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 
+
 # Create your views here.
 @api_view(["POST"])
 @permission_classes([AllowAny])
@@ -25,10 +26,23 @@ class LogoutView(APIView):
             refresh_token = request.data.get("refresh")
             if not refresh_token:
                 return Response({"error": "Refresh token is required."}, status=400)
-            
+
             token = RefreshToken(refresh_token)
             token.blacklist()
 
-            return Response({"status":"logout success"}, status=200)
+            return Response({"status": "logout success"}, status=200)
         except Exception as e:
-            return Response({"error": "An error occurred, please try again."}, status=400)
+            return Response(
+                {"error": "An error occurred, please try again."}, status=400
+            )
+
+
+class KYCStatus(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = self.request.user
+        return Response(
+            {"status": "Verified" if user.is_kyc_verified else "Not Verified"},
+            status=status.HTTP_200_OK,
+        )

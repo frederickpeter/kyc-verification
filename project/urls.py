@@ -18,7 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-from accounts.views import register, LogoutView
+from accounts.views import register, LogoutView, KYCStatus
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     # TokenRefreshView,
@@ -29,6 +29,7 @@ urlpatterns = [
     path("api/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/signup/", register, name="signup"),
     path("api/logout/", LogoutView.as_view(), name="logout"),
+    path("api/kyc-status/", KYCStatus.as_view(), name="kyc-status"),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
