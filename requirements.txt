@@ -10,13 +10,16 @@ djangorestframework_simplejwt==5.4.0
 drf-spectacular==0.28.0
 filetype==1.2.0
 fuzzywuzzy==0.18.0
+gunicorn==23.0.0
 inflection==0.5.1
 jmespath==1.0.1
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 Levenshtein==0.26.1
 mysqlclient==2.2.7
+packaging==24.2
 pillow==11.1.0
+psycopg2-binary==2.9.10
 PyJWT==2.10.1
 python-dateutil==2.9.0.post0
 python-Levenshtein==0.26.1
