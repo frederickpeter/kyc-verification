@@ -16,7 +16,7 @@ jmespath==1.0.1
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 Levenshtein==0.26.1
-mysqlclient==2.2.7
+# mysqlclient==2.2.7
 packaging==24.2
 pillow==11.1.0
 psycopg2-binary==2.9.10
