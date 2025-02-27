@@ -35,6 +35,8 @@ class UserAdmin(BaseUserAdmin):
                     "email",
                     "password",
                     "document",
+                    "profile_photo",
+                    "is_kyc_verified"
                 ),
             },
         ),
@@ -79,6 +81,7 @@ class UserAdmin(BaseUserAdmin):
                     "password1",
                     "password2",
                     "document",
+                    "is_kyc_verified",
                 ),
             },
         ),

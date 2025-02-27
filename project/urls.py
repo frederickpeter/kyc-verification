@@ -17,31 +17,54 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 from django.conf import settings
 from accounts.views import (
-    register,
+    RegisterView,
     LogoutView,
-    KYCStatus,
-    UserProfile,
-    Users,
-    ApproveKYC,
+    KYCStatusView,
+    UserProfileView,
+    UsersView,
+    ApproveKYCView,
+    RejectKYCView,
+    VerifyIdentityView,
 )
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     # TokenRefreshView,
 )
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/signup/", register, name="signup"),
+    path("api/signup/", RegisterView.as_view(), name="signup"),
     path("api/logout/", LogoutView.as_view(), name="logout"),
-    path("api/kyc-status/", KYCStatus.as_view(), name="kyc-status"),
-    path("api/user-profile/", UserProfile.as_view(), name="user-profile"),
-    path("api/admin/users/", Users.as_view(), name="all-users"),
-    path("api/admin/approve-kyc/<int:pk>/", ApproveKYC.as_view(), name="approve-kyc"),
+    path("api/kyc-status/", KYCStatusView.as_view(), name="kyc-status"),
+    path("api/user-profile/", UserProfileView.as_view(), name="user-profile"),
+    path("api/admin/users/", UsersView.as_view(), name="all-users"),
+    path(
+        "api/admin/approve-kyc/<int:pk>/", ApproveKYCView.as_view(), name="approve-kyc"
+    ),
+    path("api/admin/reject-kyc/<int:pk>/", RejectKYCView.as_view(), name="reject-kyc"),
+    path("api/upload-document/", VerifyIdentityView.as_view(), name="verify-identity"),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
+    path(
+        "",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
