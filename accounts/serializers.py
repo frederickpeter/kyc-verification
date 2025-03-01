@@ -24,6 +24,14 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
         return instance
 
+    def validate_document(self, value):
+        ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "application/pdf"]
+        if value.content_type not in ALLOWED_FILE_TYPES:
+            raise serializers.ValidationError(
+                "Invalid file format. Allowed: JPEG, PNG, PDF"
+            )
+        return value
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
